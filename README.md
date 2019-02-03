@@ -7,9 +7,9 @@
 ## UWP/HoloLens side:
 
 - Clone the repository and open it in Unity 2018+
-- Change the URI in Scripts/TestWebsocketSender to your websocket server.
+- Change the URI in `Scripts/TestWebsocketSender.cs` to your websocket server.
 
-    `websocket = new WebSocket("ws://138.67.205.185:8000/");`
+    `websocket = new WebSocket("ws://192.67.205.185:8000/");`
 
 - Build in Unity and then Deploy application to device using Visual Studio 2017.
 - HoloLens will display whatever message you send from the server.
