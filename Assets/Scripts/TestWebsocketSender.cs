@@ -12,6 +12,7 @@ public class TestWebsocketSender : MonoBehaviour, IInputClickHandler
     bool updateTextInfo;
     String newTextInfo;
     TextMesh textinfo;
+    Renderer gestureArrow;
 
 
     public void Connect()
@@ -45,6 +46,7 @@ public class TestWebsocketSender : MonoBehaviour, IInputClickHandler
     void Start()
     {
         textinfo = GameObject.Find("infotext").GetComponentInChildren<TextMesh>();
+        gestureArrow = GameObject.Find("gestureArrow").GetComponent<Renderer>();
         Connect();
         websocket.OnOpen += (sender, e) =>
         {
@@ -89,6 +91,16 @@ public class TestWebsocketSender : MonoBehaviour, IInputClickHandler
             try
             {
                 SendCommand("test message");
+                if (gestureArrow.enabled == true)
+                {
+                    gestureArrow.enabled = false;
+                } else
+                {
+                    gestureArrow.enabled = true;
+
+                }
+
+
             }
             catch (AggregateException e)
             {
@@ -103,7 +115,26 @@ public class TestWebsocketSender : MonoBehaviour, IInputClickHandler
             {
                 if (textinfo != null)
                 {
-                    textinfo.text = newTextInfo;
+                    //textinfo.text = newTextInfo;
+
+                    if (newTextInfo == "127.0.0.1 - 1")
+                    {
+                        textinfo.text = "High Auditory Load";
+                        gestureArrow.enabled = true;
+
+                    }
+                    else if (newTextInfo == "127.0.0.1 - 2")
+                    {
+                        textinfo.text = "High Visual Load:\nDisable Allocentric Gesture";
+                        gestureArrow.enabled = false;
+                    }
+                    else
+                    {
+                        textinfo.text = newTextInfo;
+                        gestureArrow.enabled = false;
+                    }
+
+
                     /*
                     if (textinfo.text.Length > 300)
                     {
